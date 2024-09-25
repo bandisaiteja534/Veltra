@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Listings</title>
+    <link rel="stylesheet" href="/css/styles1.css">
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/Trip">Trip</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </header>
+    <h1>Trip Listings</h1>
+    <a href="/Trip/add" class="add-Trip-button">Add Trip</a>
+    <ul>
+        <% if (Trip.length === 0) { %>
+            <li>
+                <img src="/images/default.png" alt="Placeholder" />
+                <p>No Trip available. Please add a Trip.</p>
+            </li>
+        <% } else { %>
+            <% Trip.forEach(Trip => { %>
+                <li>
+                    <div class="Trip-card">
+                        <img src="<%= Trip.image || '/images/default.png' %>" alt="<%= Trip.title %> Image" style="width: 80px; height: auto; max-height: 80px; object-fit: cover; margin-right: 15px;" />
+                        <div>
+                            <h3><%= Trip.title %></h3>
+                            <p><strong>Location:</strong> <%= Trip.Location %></p>
+                            <p><strong>from-to:</strong> <%= Trip.from-to %></p>
+                            <p><strong>Description:</strong> <%= Trip.description %></p>
+                            <a href="https://www.linkedin.com/Trips/search/?keywords=<%= encodeURIComponent(Trip.title + ' at ' + Trip.company) %>" target="_blank" class="apply-button">Apply</a>
+                            <form action="/Trip/delete/<%= Trip._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            <% }) %>
+        <% } %>
+    </ul>
+    <footer>
+        <p>&copy; 2024 Veltra | Travel Packages Platform</p>
+      </footer>
+</body>
+</html>
